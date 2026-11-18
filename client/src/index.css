@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-paper: #f6f5f1;
+  --color-card: #ffffff;
+  --color-ink: #17181a;
+  --color-muted: #6b6f76;
+  --color-line: #e4e2dc;
+  --color-accent: #134e4a;
+  --color-accent-soft: #e3efed;
+  --color-warn: #b45309;
+  --color-warn-soft: #fdf3e5;
+  --color-good: #15803d;
+  --color-good-soft: #e8f5ec;
+  --color-bad: #b91c1c;
+  --color-bad-soft: #fbeaea;
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@utility card {
+  @apply rounded-xl border border-line bg-card;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-accent text-white hover:bg-[#0f3f3c];
+}
+@utility btn-ghost {
+  @apply btn border border-line bg-card text-ink hover:bg-paper;
+}
+@utility input {
+  @apply w-full rounded-lg border border-line bg-card px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20;
+}
+@utility eyebrow {
+  @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-muted;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+  .card {
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,16 @@
+# Frontend (React app) on Netlify. The scanner API runs separately (see server/Dockerfile),
+# and its public URL goes in the VITE_API_URL environment variable in the Netlify UI.
+[build]
+  command = "npm run build -w client"
+  publish = "client/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Netlify doesn't need the Chromium download; only the scanner server does.
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
+
+# Single-page app: send every route to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

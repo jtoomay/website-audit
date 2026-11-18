@@ -1,0 +1,32 @@
+{
+  "name": "website-audit",
+  "private": true,
+  "version": "0.1.0",
+  "description": "StackScout: detect what a website is built with, for accurate project quotes.",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w server && npm run build -w client",
+    "test": "npm run test -w server",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w client",
+    "setup": "npm run browsers && npm run fingerprints",
+    "browsers": "playwright install chromium",
+    "fingerprints": "node scripts/update-fingerprints.mjs",
+    "fingerprints:latest": "node scripts/update-fingerprints.mjs --latest",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:status": "supabase status",
+    "db:reset": "supabase db reset",
+    "db:env": "node scripts/setup-env.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "supabase": "^2.40.0"
+  },
+  "engines": {
+    "node": ">=20.11"
+  }
+}
