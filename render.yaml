@@ -1,0 +1,30 @@
+# Render Blueprint for the StackScout scanner API.
+# In Render: New → Blueprint → pick this repo. Secrets marked `sync: false`
+# are asked for in the dashboard and never stored in git.
+services:
+  - type: web
+    name: stackscout-api
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: .
+    plan: starter # headless Chromium needs real RAM; the free tier is too small and sleeps
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      # Your Netlify URL(s), comma-separated, e.g. https://stackscout.netlify.app
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: MAX_CONCURRENT_SCANS
+        value: "1"
+      - key: FREE_MONTHLY_SCANS
+        value: "100"
+      - key: PRO_MONTHLY_SCANS
+        value: "2000"
+      - key: AGENCY_MONTHLY_SCANS
+        value: "10000"
